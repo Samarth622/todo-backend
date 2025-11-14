@@ -10,6 +10,7 @@ import {
 } from "../services/token.service";
 import dotenv from "dotenv";
 import prisma from "../prisma";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 dotenv.config();
 
@@ -50,9 +51,7 @@ export async function login(req: Request, res: Response) {
 
   const user = await verifyUser(email, password);
   if (!user)
-    return res
-      .status(401)
-      .json({ error: { message: "Invalid email or password" } });
+    throw new UnauthorizedError("Invalid email or password");
 
   const accessToken = signAccessToken({ sub: user.id, email: user.email });
 
@@ -71,7 +70,7 @@ export async function login(req: Request, res: Response) {
 export async function refresh(req: Request, res: Response) {
   const token = req.cookies[COOKIE_NAME];
   if (!token)
-    return res.status(401).json({ error: { message: "No refresh token" } });
+    throw new UnauthorizedError("No refresh token");
 
   const payload: any = null;
 
@@ -84,7 +83,7 @@ export async function refresh(req: Request, res: Response) {
   }
 
   if (!userId)
-    return res.status(401).json({ error: { message: "Invalid refresh token" } });
+    throw new UnauthorizedError("Invalid refresh token");
 
   const accessToken = signAccessToken({ sub: userId });
 

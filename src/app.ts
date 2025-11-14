@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/tasks.routes";
 import cors from "cors";
 import helmet from "helmet";
+import errorMiddleware from "./middleware/error.middleware";
 
 const app = express();
 app.use(json());
@@ -22,6 +23,8 @@ app.use(
     crossOriginResourcePolicy: false,
   })
 );
+
+app.use(errorMiddleware);
 
 app.get("/", (req, res) => res.send("Hello from TypeScript + Prisma!"));
 

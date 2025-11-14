@@ -1,14 +1,13 @@
 import prisma from "../prisma";
 import bcrypt from "bcrypt";
+import { ConflictError } from "../errors/ConflictError";
 
 const SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS) || 12;
 
 export async function createUser(email: string, password: string, name?: string) {
   const exists = await prisma.user.findUnique({ where: { email } });
   if (exists) {
-    const error: any = new Error("Email already exists");
-    error.status = 409;
-    throw error;
+    throw new ConflictError("Email already exists");
   }
 
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);

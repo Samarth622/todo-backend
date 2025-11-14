@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AuthRequest } from "../middleware/auth.middleware";
 import prisma from "../prisma";
 import { createTask, deleteTask, getTaskById, updateTask } from "../services/tasks.service";
+import { NotFoundError } from "../errors/NotFoundError";
 
 
 export async function createTaskController(req: AuthRequest, res: Response) {
@@ -60,7 +61,7 @@ export async function getTaskController(req: AuthRequest, res: Response) {
   const id = Number(req.params.id);
 
   const task = await getTaskById(id, userId);
-  if (!task) return res.status(404).json({ error: { message: "Task not found" } });
+  if (!task) throw new NotFoundError("Task not found");
 
   return res.json(task);
 }
@@ -73,7 +74,7 @@ export async function updateTaskController(req: AuthRequest, res: Response) {
   const updated = await updateTask(id, userId, req.body);
 
   if (updated.count === 0)
-    return res.status(404).json({ error: { message: "Task not found" } });
+    throw new NotFoundError("Task not found");
 
   return res.json({ message: "Updated successfully" });
 }
@@ -86,7 +87,7 @@ export async function deleteTaskController(req: AuthRequest, res: Response) {
   const deleted = await deleteTask(id, userId);
 
   if (deleted.count === 0)
-    return res.status(404).json({ error: { message: "Task not found" } });
+    throw new NotFoundError("Task not found");
 
   return res.status(204).send();
 }
@@ -97,7 +98,7 @@ export async function toggleTaskStatusController(req: AuthRequest, res: Response
   const id = Number(req.params.id);
 
   const task = await getTaskById(id, userId);
-  if (!task) return res.status(404).json({ error: { message: "Task not found" } });
+  if (!task) throw new NotFoundError("Task not found");
 
   let newStatus;
 
