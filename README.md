@@ -249,6 +249,6 @@ The application follows a layered architecture pattern:
 This README provides a complete overview of the todo-backend API, including all authentication and task management endpoints, security features, and setup instructions.<cite></cite> The project uses a modern TypeScript stack with Prisma ORM for type-safe database access and implements industry-standard security practices including JWT authentication, password hashing, and CORS protection.<cite></cite>
 
 Wiki pages you might want to explore:
-- [Overview (Samarth622/todo-backend)](/wiki/Samarth622/todo-backend#1)
-- [Authentication System (Samarth622/todo-backend)](/wiki/Samarth622/todo-backend#3)
-- [Task Management System (Samarth622/todo-backend)](/wiki/Samarth622/todo-backend#4)
+- [Overview (Samarth622/todo-backend)]([/deepwiki/Samarth622/todo-backend#1](https://deepwiki.com/Samarth622/todo-backend#1))
+- [Authentication System (Samarth622/todo-backend)]([/wiki/Samarth622/todo-backend#3](https://deepwiki.com/Samarth622/todo-backend/3-authentication-system))
+- [Task Management System (Samarth622/todo-backend)]([/wiki/Samarth622/todo-backend#4](https://deepwiki.com/Samarth622/todo-backend/4-task-management-system))
