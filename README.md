@@ -41,7 +41,7 @@ npm run prisma:migrate
 
 # Start development server
 npm run dev
-``` [9](#1-8) 
+``` 
 
 The server will start on `http://localhost:4000` 
 
